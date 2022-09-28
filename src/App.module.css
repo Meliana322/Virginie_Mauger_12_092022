@@ -1,5 +1,5 @@
 .App {
-    height: 100vh;
+    height: 1024px;
     font-family: Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
         "Helvetica Neue", sans-serif;
 }
@@ -15,9 +15,8 @@ main {
     align-items: center;
     justify-content: center;
     width: 85%;
-    height: 80%;
     border: 1px solid;
-    margin: auto auto 91px auto;
+    margin: 182px auto 91px auto;
 }
 .resultsId {
     background-color: #fff;
@@ -28,14 +27,14 @@ main {
 .identity {
     display: flex;
     flex-direction: column;
-    height: 25%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     width: 100%;
 }
 
 .identityName {
     font-size: 48px;
     font-weight: 500;
+    line-height: 0;
 }
 .identityName span {
     font-size: 48px;
@@ -44,17 +43,17 @@ main {
 .message {
     font-size: 18px;
     font-weight: 400;
+    line-height: 0;
 }
 .results {
     display: flex;
-    height: 75%;
     /* border: 2px solid blue; */
     width: 100%;
 }
 .resultsGraphics {
-    width: 100%;
+    width: 835px;
     height: 100%;
-    background-color: aqua;
+    /* background-color: aqua; */
 }
 .resultsNumbers {
     display: flex;
@@ -86,7 +85,7 @@ main {
     font-size: 20px;
     font-weight: 700;
     margin-bottom: unset;
-    line-height: 0;
+    /* line-height: 0; */
     color: #282d30;
 }
 .resultsTypes .category {
@@ -96,4 +95,26 @@ main {
 .containerResult {
     display: flex;
     flex-direction: column;
+}
+
+.dailyActivity {
+    height: 320px;
+    border: 1px solid red;
+    background-color: #fbfbfb;
+    border-radius: 5px;
+    margin-bottom: 25px;
+}
+
+.division {
+    display: flex;
+    justify-content: space-between;
+}
+
+.session,
+.speciality,
+.score {
+    width: 258px;
+    height: 263px;
+    border: 1px solid;
+    border-radius: 5px;
 }

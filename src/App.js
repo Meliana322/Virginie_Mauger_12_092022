@@ -26,7 +26,14 @@ function App() {
                             </p>
                         </div>
                         <div className={styles.results}>
-                            <div className={styles.resultsGraphics}></div>
+                            <div className={styles.resultsGraphics}>
+                                <div className={styles.dailyActivity}></div>
+                                <div className={styles.division}>
+                                    <div className={styles.session}></div>
+                                    <div className={styles.speciality}></div>
+                                    <div className={styles.score}></div>
+                                </div>
+                            </div>
                             <div className={styles.resultsNumbers}>
                                 <div className={styles.resultsTypes}>
                                     <img
