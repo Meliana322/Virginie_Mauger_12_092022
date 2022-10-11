@@ -1,0 +1,48 @@
+/* Timing Charts */
+
+.header {
+    display: flex;
+    flex-wrap: wrap;
+    width: 147px;
+    position: absolute;
+    font-size: 15px;
+    color: #ffffff;
+    /* mix-blend-mode: normal; */
+    opacity: 0.8;
+}
+
+.CustomTooltip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 39px;
+    height: 25px;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.CustomTooltip p {
+    font-size: 8px;
+    font-weight: 500;
+}
+
+/* Activity Charts */
+
+.tooltip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #e60000;
+    height: 63px;
+    width: 39px;
+    color: #ffffff;
+}
+.tooltip p {
+    font-size: 7px;
+    font-weight: 500;
+}
+
+.tooltipDescription {
+    color: #ffffff;
+}

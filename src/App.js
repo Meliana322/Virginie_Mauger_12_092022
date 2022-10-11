@@ -5,8 +5,40 @@ import calories from "../src/assets/calories.png";
 import carbs from "../src/assets/carbs.png";
 import fat from "../src/assets/fat.png";
 import protein from "../src/assets/protein.png";
+import Activity from "./components/Charts/Activity";
+import TimingSessions from "./components/Charts/TimingSessions";
+import Performances from "./components/Charts/Performances";
+import Score from "./components/Charts/Score";
+import { useState, useEffect } from "react";
+import * as APIServer from "./api";
+import * as APIMock from "./apiMock";
 
-function App() {
+const API = process.env.REACT_APP_ISMOCKACTIVE === "true" ? APIMock : APIServer;
+
+function App(userId) {
+    // const [data, setDate] = useState([]);
+    const [firstName, setFirstName] = useState("");
+    const [calorieCount, setCalorieCount] = useState("");
+    const [proteinCount, setProteinCount] = useState("");
+    const [carbohydrateCount, setCarbohydrateCount] = useState("");
+    const [lipidCount, setLipidCount] = useState("");
+    useEffect(() => {
+        API.getUser(18)
+            .then((res) => {
+                setFirstName(res.data.data.userInfos.firstName);
+                // console.log(res.data.data.userInfos.firstName);
+                setCalorieCount(res.data.data.keyData.calorieCount);
+                // console.log(res.data.data.keyData.calorieCount);
+                setProteinCount(res.data.data.keyData.proteinCount);
+                // console.log(res.data.data.keyData.proteinCount);
+                setCarbohydrateCount(res.data.data.keyData.carbohydrateCount);
+                // console.log(res.data.data.keyData.carbohydrateCount);
+                setLipidCount(res.data.data.keyData.lipidCount);
+                // console.log(res.data.data.keyData.lipidCount);
+            })
+            .catch((err) => console.log(err));
+    }, []);
+
     return (
         <div className={styles.App}>
             <header className={styles.header}>
@@ -14,11 +46,12 @@ function App() {
             </header>
             <main>
                 <NavbarVertical />
+
                 <section className={styles.resultsId}>
                     <div className={styles.container}>
                         <div className={styles.identity}>
                             <p className={styles.identityName}>
-                                Bonjour <span>Thomas</span>
+                                Bonjour <span>{firstName}</span>
                             </p>
                             <p className={styles.message}>
                                 Félicitation ! Vous avez explosé vos objectifs
@@ -27,11 +60,19 @@ function App() {
                         </div>
                         <div className={styles.results}>
                             <div className={styles.resultsGraphics}>
-                                <div className={styles.dailyActivity}></div>
+                                <div className={styles.dailyActivity}>
+                                    <Activity />
+                                </div>
                                 <div className={styles.division}>
-                                    <div className={styles.session}></div>
-                                    <div className={styles.speciality}></div>
-                                    <div className={styles.score}></div>
+                                    <div className={styles.session}>
+                                        <TimingSessions />
+                                    </div>
+                                    <div className={styles.speciality}>
+                                        <Performances />
+                                    </div>
+                                    <div className={styles.score}>
+                                        <Score />
+                                    </div>
                                 </div>
                             </div>
                             <div className={styles.resultsNumbers}>
@@ -43,7 +84,7 @@ function App() {
                                     />
                                     <div className={styles.containerResult}>
                                         <p className={styles.result}>
-                                            1,930kCal
+                                            {calorieCount}
                                         </p>
                                         <p className={styles.category}>
                                             Calories
@@ -57,9 +98,11 @@ function App() {
                                         alt=""
                                     />
                                     <div>
-                                        <p className={styles.result}>155g</p>
+                                        <p className={styles.result}>
+                                            {proteinCount}
+                                        </p>
                                         <p className={styles.category}>
-                                            Protéines
+                                            protéines
                                         </p>
                                     </div>
                                 </div>
@@ -70,7 +113,9 @@ function App() {
                                         alt=""
                                     />
                                     <div>
-                                        <p className={styles.result}>290g</p>
+                                        <p className={styles.result}>
+                                            {carbohydrateCount}
+                                        </p>
                                         <p className={styles.category}>
                                             Glucides
                                         </p>
@@ -83,7 +128,9 @@ function App() {
                                         alt=""
                                     />
                                     <div>
-                                        <p className={styles.result}>50g</p>
+                                        <p className={styles.result}>
+                                            {lipidCount}
+                                        </p>
                                         <p className={styles.category}>
                                             Lipides
                                         </p>
@@ -97,5 +144,4 @@ function App() {
         </div>
     );
 }
-
 export default App;
