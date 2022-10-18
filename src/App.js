@@ -16,7 +16,6 @@ import * as APIMock from "./apiMock";
 const API = process.env.REACT_APP_ISMOCKACTIVE === "true" ? APIMock : APIServer;
 
 function App(userId) {
-    // const [data, setDate] = useState([]);
     const [firstName, setFirstName] = useState("");
     const [calorieCount, setCalorieCount] = useState("");
     const [proteinCount, setProteinCount] = useState("");
@@ -26,15 +25,10 @@ function App(userId) {
         API.getUser(18)
             .then((res) => {
                 setFirstName(res.data.data.userInfos.firstName);
-                // console.log(res.data.data.userInfos.firstName);
                 setCalorieCount(res.data.data.keyData.calorieCount);
-                // console.log(res.data.data.keyData.calorieCount);
                 setProteinCount(res.data.data.keyData.proteinCount);
-                // console.log(res.data.data.keyData.proteinCount);
                 setCarbohydrateCount(res.data.data.keyData.carbohydrateCount);
-                // console.log(res.data.data.keyData.carbohydrateCount);
                 setLipidCount(res.data.data.keyData.lipidCount);
-                // console.log(res.data.data.keyData.lipidCount);
             })
             .catch((err) => console.log(err));
     }, []);

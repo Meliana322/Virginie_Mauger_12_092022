@@ -4,46 +4,13 @@ import {
     RadarChart,
     PolarGrid,
     PolarAngleAxis,
-    // PolarRadiusAxis,
+    PolarRadiusAxis,
     ResponsiveContainer,
 } from "recharts";
 import { useState, useEffect } from "react";
 import * as APIServer from "../../api";
 import * as APIMock from "../../apiMock";
 const API = process.env.REACT_APP_ISMOCKACTIVE === "true" ? APIMock : APIServer;
-
-// const data = [
-//     {
-//         subject: "Cardio",
-//         value: 80,
-//         // kind: 1,
-//     },
-//     {
-//         subject: "Energie",
-//         value: 120,
-//         // kind: 2,
-//     },
-//     {
-//         subject: "Endurance",
-//         value: 140,
-//         // kind: 3,
-//     },
-//     {
-//         subject: "Force",
-//         value: 50,
-//         // kind: 4,
-//     },
-//     {
-//         subject: "Vitesse",
-//         value: 200,
-//         // kind: 5,
-//     },
-//     {
-//         subject: "Intensité",
-//         value: 90,
-//         // kind: 6,
-//     },
-// ];
 
 const categoryFR = {
     1: "cardio",
@@ -55,13 +22,11 @@ const categoryFR = {
 };
 
 export default function Performances() {
-    const [kind, setKind] = useState("");
     const [perf, setPerf] = useState([]);
 
     useEffect(() => {
-        API.getUserPerformance(12)
+        API.getUserPerformance(18)
             .then((res) => {
-                setKind(res.data.data.kind);
                 const allData = res.data.data;
                 const tempPerf = allData.data.map((obj) => {
                     return {
@@ -71,7 +36,6 @@ export default function Performances() {
                 });
 
                 setPerf(tempPerf);
-                console.log(res.data.data.kind);
             })
             .catch((err) => console.log(err));
     }, []);
@@ -82,12 +46,23 @@ export default function Performances() {
                     cx="50%"
                     cy="50%"
                     outerRadius="80%"
-                    width={258}
-                    height={263}
                     data={perf}
+                    // margin="auto"
+                    margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
                 >
-                    <PolarGrid />
-                    <PolarAngleAxis dataKey="subject" stroke="#FFF" />
+                    <PolarGrid radialLines={false} />
+                    <PolarAngleAxis
+                        dataKey="subject"
+                        stroke="#FFF"
+                        axisLine={false}
+                        fontSize="12px"
+                    />
+                    <PolarRadiusAxis
+                        tick={false}
+                        axisLine={false}
+                        tickCount={6}
+                        angle={360}
+                    />
                     <Radar dataKey="value" fill="#FF0101B2" fillOpacity={0.6} />
                 </RadarChart>
             </ResponsiveContainer>

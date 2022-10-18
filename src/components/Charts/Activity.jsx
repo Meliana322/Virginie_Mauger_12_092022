@@ -11,7 +11,7 @@ import {
 } from "recharts";
 import styles from "./charts.module.css";
 import { useState, useEffect } from "react";
-// import propTypes from "prop-types";
+import propTypes from "prop-types";
 import * as APIServer from "../../api";
 import * as APIMock from "../../apiMock";
 const API = process.env.REACT_APP_ISMOCKACTIVE === "true" ? APIMock : APIServer;
@@ -29,37 +29,58 @@ const CustomTooltip = ({ active, payload }) => {
     return null;
 };
 
+CustomTooltip.propTypes = {
+    active: propTypes.bool,
+    payload: propTypes.array,
+};
+
 export default function Activity() {
-    const [data, setData] = useState([]);
-    // const [sessions, setSessions] = useState([]);
-    const [calories, setCalories] = useState("");
+    const [calories, setCalories] = useState([]);
 
     useEffect(() => {
-        API.getUserActivity(12)
+        API.getUserActivity(18)
             .then((res) => {
-                setData(res.data.data);
-                // console.log(res.data.data);
                 setCalories(res.data.data.sessions);
-                // console.log(res.data.data.sessions);
+                console.log(res.data.data.sessions);
             })
             .catch((err) => console.log(err));
     }, []);
+
+    const caloriesFormated = calories.map((session, index) => {
+        return { ...session, count: index + 1 };
+    });
+
     return (
         <>
-            <header>
-                <p>Activité quotidienne</p>
-            </header>
-            <ResponsiveContainer width="100%" height="80%">
+            <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                     width={258}
-                    height={320}
-                    data={calories}
+                    height={420}
+                    data={caloriesFormated}
                     barGap="8"
-                    margin={{ top: 15, right: 30, left: 20, bottom: 5 }}
+                    margin={{ top: 0, right: 30, left: 20, bottom: 5 }}
                 >
+                    <text
+                        x={100}
+                        y={14}
+                        fill="black"
+                        textAnchor="middle"
+                        dominantBaseline="central"
+                    >
+                        <tspan fontSize="18px" fontWeight="500">
+                            Activité quotidienne
+                        </tspan>
+                    </text>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="day" />
-                    <YAxis />
+                    <XAxis
+                        dataKey="count"
+                        fontSize={14}
+                        tickMargin={15}
+                        tickLine={false}
+                        padding={{ right: -37, left: -42 }}
+                    />
+
+                    <YAxis orientation={"right"} />
                     <Tooltip
                         content={<CustomTooltip />}
                         wrapperStyle={{ outline: "none" }}
@@ -69,6 +90,7 @@ export default function Activity() {
                         align="right"
                         iconType="circle"
                         iconSize={9}
+                        height={80}
                     />
                     <Bar
                         dataKey="kilogram"
