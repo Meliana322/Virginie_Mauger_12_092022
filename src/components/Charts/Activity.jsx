@@ -10,11 +10,11 @@ import {
     ResponsiveContainer,
 } from "recharts";
 import styles from "./charts.module.css";
-import { useState, useEffect } from "react";
-import propTypes from "prop-types";
-import * as APIServer from "../../api";
-import * as APIMock from "../../apiMock";
-const API = process.env.REACT_APP_ISMOCKACTIVE === "true" ? APIMock : APIServer;
+// import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+// import * as APIServer from "../../api";
+// import * as APIMock from "../../apiMock";
+// const API = process.env.REACT_APP_ISMOCKACTIVE === "true" ? APIMock : APIServer;
 
 const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
@@ -30,25 +30,26 @@ const CustomTooltip = ({ active, payload }) => {
 };
 
 CustomTooltip.propTypes = {
-    active: propTypes.bool,
-    payload: propTypes.array,
+    active: PropTypes.bool,
+    payload: PropTypes.array,
 };
 
-export default function Activity() {
-    const [calories, setCalories] = useState([]);
+export default function Activity(props) {
+    // const [calories, setCalories] = useState([]);
 
-    useEffect(() => {
-        API.getUserActivity(18)
-            .then((res) => {
-                setCalories(res.data.data.sessions);
-                console.log(res.data.data.sessions);
-            })
-            .catch((err) => console.log(err));
-    }, []);
+    // useEffect(() => {
+    //     API.getUserActivity(18)
+    //         .then((res) => {
+    //             setCalories(res.data.data.sessions);
+    //             console.log(res.data.data.sessions);
+    //         })
+    //         .catch((err) => console.log(err));
 
-    const caloriesFormated = calories.map((session, index) => {
-        return { ...session, count: index + 1 };
-    });
+    // }, []);
+
+    // const caloriesFormated = calories.map((session, index) => {
+    //     return { ...session, count: index + 1 };
+    // });
 
     return (
         <>
@@ -56,7 +57,7 @@ export default function Activity() {
                 <BarChart
                     width={258}
                     height={420}
-                    data={caloriesFormated}
+                    data={props.caloriesFormated}
                     barGap="8"
                     margin={{ top: 0, right: 30, left: 20, bottom: 5 }}
                 >
@@ -111,3 +112,20 @@ export default function Activity() {
         </>
     );
 }
+
+Activity.propTypes = {
+    caloriesFormated: PropTypes.arrayOf(
+        PropTypes.shape({
+            count: PropTypes.number,
+            calories: PropTypes.number,
+            kilogram: PropTypes.number,
+            day: PropTypes.string,
+        })
+    ),
+};
+// Activity.propTypes = {
+// 	count: propTypes.
+//  kilogram: propTypes.
+//  calories: propTypes.
+
+// };
