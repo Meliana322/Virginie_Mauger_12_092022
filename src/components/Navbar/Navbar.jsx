@@ -6,10 +6,10 @@ import logo from "../../assets/Logo.png";
 export default function Navbar() {
     return (
         <nav className={styles.navbar}>
-            <div className={styles.logo}>
+            <Link className={styles.logo} to="/">
                 <img src={logo} className={styles.logo} alt="logo sportSee" />
                 SportSee
-            </div>
+            </Link>
 
             <ul className={styles.list}>
                 <li>

@@ -7,38 +7,9 @@ import {
     PolarRadiusAxis,
     ResponsiveContainer,
 } from "recharts";
-// import { useState, useEffect } from "react";
-// import * as APIServer from "../../api";
-// import * as APIMock from "../../apiMock";
-// const API = process.env.REACT_APP_ISMOCKACTIVE === "true" ? APIMock : APIServer;
-
-// const categoryFR = {
-//     1: "Intensité",
-//     2: "Vitesse",
-//     3: "Force",
-//     4: "Endurance",
-//     5: "Energie",
-//     6: "Cardio",
-// };
+import PropTypes from "prop-types";
 
 export default function Performances(props) {
-    // const [perf, setPerf] = useState([]);
-
-    // useEffect(() => {
-    //     API.getUserPerformance(18)
-    //         .then((res) => {
-    //             const allData = res.data.data;
-    //             const tempPerf = allData.data.map((obj) => {
-    //                 return {
-    //                     value: obj.value,
-    //                     subject: categoryFR[obj.kind],
-    //                 };
-    //             });
-
-    //             setPerf(tempPerf);
-    //         })
-    //         .catch((err) => console.log(err));
-    // }, []);
     return (
         <>
             <ResponsiveContainer width="100%" height="100%">
@@ -73,3 +44,12 @@ export default function Performances(props) {
         </>
     );
 }
+
+Performances.propTypes = {
+    perf: PropTypes.arrayOf(
+        PropTypes.shape({
+            value: PropTypes.number,
+            subject: PropTypes.string,
+        })
+    ),
+};

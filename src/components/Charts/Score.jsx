@@ -1,11 +1,8 @@
 import React from "react";
 import { PieChart, Pie, Legend, ResponsiveContainer } from "recharts";
-// import { useState, useEffect } from "react";
-// import * as APIServer from "../../api";
-// import * as APIMock from "../../apiMock";
 import styles from "./charts.module.css";
+import PropTypes from "prop-types";
 
-// const API = process.env.REACT_APP_ISMOCKACTIVE === "true" ? APIMock : APIServer;
 const renderMiddleShape = [{ name: "middle", value: 100, fill: "#FFFFFF" }];
 const CustomTooltip = ({ payload }) => {
     return (
@@ -16,17 +13,11 @@ const CustomTooltip = ({ payload }) => {
     );
 };
 
-export default function Score(props) {
-    // const [score, setScore] = useState("");
-    // const datas = [{ name: "score", value: score }];
+CustomTooltip.propTypes = {
+    score: PropTypes.number,
+};
 
-    // useEffect(() => {
-    //     API.getUser(18)
-    //         .then((res) => {
-    //             setScore(res.data.data.score || res.data.data.todayScore);
-    //         })
-    //         .catch((err) => console.log(err));
-    // }, []);
+export default function Score(props) {
     return (
         <>
             <ResponsiveContainer width="100%" height="100%">
@@ -72,3 +63,12 @@ export default function Score(props) {
         </>
     );
 }
+
+Score.propTypes = {
+    datas: PropTypes.arrayOf(
+        PropTypes.shape({
+            score: PropTypes.number,
+            name: PropTypes.string,
+        })
+    ),
+};

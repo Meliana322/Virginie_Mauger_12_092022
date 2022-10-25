@@ -1,11 +1,7 @@
 import React from "react";
 import { LineChart, Line, XAxis, Tooltip, ResponsiveContainer } from "recharts";
 import styles from "./charts.module.css";
-// import { useState, useEffect } from "react";
-import propTypes from "prop-types";
-// import * as APIServer from "../../api";
-// import * as APIMock from "../../apiMock";
-// const API = process.env.REACT_APP_ISMOCKACTIVE === "true" ? APIMock : APIServer;
+import PropTypes from "prop-types";
 
 function CustomTooltip({ payload, active }) {
     if (active) {
@@ -20,39 +16,11 @@ function CustomTooltip({ payload, active }) {
     return null;
 }
 CustomTooltip.propTypes = {
-    payload: propTypes.array,
-    active: propTypes.bool,
+    payload: PropTypes.array,
+    active: PropTypes.bool,
 };
 
-// const Days = {
-//     1: "L",
-//     2: "M",
-//     3: "M",
-//     4: "J",
-//     5: "V",
-//     6: "S",
-//     7: "D",
-// };
-
 export default function TimingSessions(props) {
-    // const [time, setTime] = useState([]);
-
-    // useEffect(() => {
-    //     API.getUserAverageSessions(12)
-    //         .then((res) => {
-    //             const allData = res.data.data;
-    //             const tempTime = allData.sessions.map((obj) => {
-    //                 return {
-    //                     session: obj.sessionLength,
-    //                     day: Days[obj.day],
-    //                 };
-    //             });
-
-    //             setTime(tempTime);
-    //         })
-    //         .catch((err) => console.log(err));
-    // }, []);
-
     return (
         <>
             <header className={styles.header}>
@@ -98,6 +66,11 @@ const CustomHover = ({ points }) => {
     );
 };
 
-// TimingSessions.propTypes = {
-//     day: PropTypes.
-// }
+TimingSessions.propTypes = {
+    time: PropTypes.arrayOf(
+        PropTypes.shape({
+            session: PropTypes.number,
+            day: PropTypes.string,
+        })
+    ),
+};

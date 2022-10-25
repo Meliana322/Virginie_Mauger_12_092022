@@ -1,17 +1,18 @@
 import React from "react";
-import style from "./Button.module.css";
+import { Link } from "react-router-dom";
+import styles from "./Button.module.css";
+import PropTypes from "prop-types";
 
-export default function Button() {
+export default function Button(props) {
     return (
         <>
-            <div className={style.container}>
-                <a href="../../App.js" name="user/12">
-                    Utilisateur 12
-                </a>
-                <a href="../../App.js" name="user/18">
-                    Utilisateur 18
-                </a>
-            </div>
+            <Link to={props.pathname} className={styles.button}>
+                {props.children}
+            </Link>
         </>
     );
 }
+Button.propTypes = {
+    pathname: PropTypes.string,
+    children: PropTypes.string,
+};

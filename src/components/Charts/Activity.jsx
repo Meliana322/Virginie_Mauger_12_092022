@@ -10,11 +10,7 @@ import {
     ResponsiveContainer,
 } from "recharts";
 import styles from "./charts.module.css";
-// import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-// import * as APIServer from "../../api";
-// import * as APIMock from "../../apiMock";
-// const API = process.env.REACT_APP_ISMOCKACTIVE === "true" ? APIMock : APIServer;
 
 const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
@@ -35,22 +31,6 @@ CustomTooltip.propTypes = {
 };
 
 export default function Activity(props) {
-    // const [calories, setCalories] = useState([]);
-
-    // useEffect(() => {
-    //     API.getUserActivity(18)
-    //         .then((res) => {
-    //             setCalories(res.data.data.sessions);
-    //             console.log(res.data.data.sessions);
-    //         })
-    //         .catch((err) => console.log(err));
-
-    // }, []);
-
-    // const caloriesFormated = calories.map((session, index) => {
-    //     return { ...session, count: index + 1 };
-    // });
-
     return (
         <>
             <ResponsiveContainer width="100%" height="100%">
@@ -72,7 +52,7 @@ export default function Activity(props) {
                             Activité quotidienne
                         </tspan>
                     </text>
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <CartesianGrid strokeDasharray="3" vertical={false} />
                     <XAxis
                         dataKey="count"
                         fontSize={14}
@@ -81,7 +61,20 @@ export default function Activity(props) {
                         padding={{ right: -37, left: -42 }}
                     />
 
-                    <YAxis orientation={"right"} />
+                    <YAxis
+                        orientation={"right"}
+                        axisLine={false}
+                        tickLine={false}
+                        dx={20}
+                    />
+
+                    <YAxis
+                        type="number"
+                        yAxisId="calories"
+                        tickCount={30}
+                        axisLine={false}
+                        hide
+                    />
                     <Tooltip
                         content={<CustomTooltip />}
                         wrapperStyle={{ outline: "none" }}
@@ -123,9 +116,3 @@ Activity.propTypes = {
         })
     ),
 };
-// Activity.propTypes = {
-// 	count: propTypes.
-//  kilogram: propTypes.
-//  calories: propTypes.
-
-// };
