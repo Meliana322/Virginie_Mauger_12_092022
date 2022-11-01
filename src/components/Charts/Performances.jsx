@@ -4,7 +4,6 @@ import {
     RadarChart,
     PolarGrid,
     PolarAngleAxis,
-    PolarRadiusAxis,
     ResponsiveContainer,
 } from "recharts";
 import PropTypes from "prop-types";
@@ -32,12 +31,7 @@ export default function Performances(props) {
                         tickSize="13"
                         tickLine={false}
                     />
-                    {/* <PolarRadiusAxis
-                        tick={false}
-                        axisLine={false}
-                        tickCount={6}
-                        angle={360}
-                    /> */}
+
                     <Radar dataKey="value" fill="#FF0101B2" fillOpacity={0.6} />
                 </RadarChart>
             </ResponsiveContainer>

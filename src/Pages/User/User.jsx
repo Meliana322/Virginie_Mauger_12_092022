@@ -34,6 +34,11 @@ const categoryFR = {
     6: "Cardio",
 };
 
+/**
+ * Graphik chart component of user
+ *
+ */
+
 export default function User() {
     let navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
@@ -44,7 +49,6 @@ export default function User() {
     const [lipidCount, setLipidCount] = useState("");
 
     //getUser//
-
     let { id } = useParams();
     const [calories, setCalories] = useState([]);
     const caloriesFormated = calories.map((session, index) => {
@@ -52,77 +56,63 @@ export default function User() {
     });
 
     //getUserActivity//
-
     const [time, setTime] = useState([]);
 
     //getUserAverageSessions//
-
     const [perf, setPerf] = useState([]);
 
     //getUserPerformance//
-
     const [score, setScore] = useState("");
     const datas = [{ name: "score", value: score }];
 
     useEffect(() => {
-        API.getUser(id)
-            .then((res) => {
-                setFirstName(res.data.data.userInfos.firstName);
-                setCalorieCount(res.data.data.keyData.calorieCount);
-                setProteinCount(res.data.data.keyData.proteinCount);
-                setCarbohydrateCount(res.data.data.keyData.carbohydrateCount);
-                setLipidCount(res.data.data.keyData.lipidCount);
-                setScore(res.data.data.score || res.data.data.todayScore);
-                setIsLoading(false);
-            })
-            .catch((err) => {
-                console.log(err);
-                navigate("/404");
-                setIsLoading(false);
+        const promiseUser = API.getUser(id).then((res) => {
+            setFirstName(res.data.data.userInfos.firstName);
+            setCalorieCount(res.data.data.keyData.calorieCount);
+            setProteinCount(res.data.data.keyData.proteinCount);
+            setCarbohydrateCount(res.data.data.keyData.carbohydrateCount);
+            setLipidCount(res.data.data.keyData.lipidCount);
+            setScore(res.data.data.score || res.data.data.todayScore);
+        });
+
+        const promiseActivity = API.getUserActivity(id).then((res) => {
+            setCalories(res.data.data.sessions);
+        });
+
+        const promiseSession = API.getUserAverageSessions(id).then((res) => {
+            const allData = res.data.data;
+
+            const tempTime = allData.sessions.map((obj) => {
+                return {
+                    session: obj.sessionLength,
+                    day: Days[obj.day],
+                };
             });
+            setTime(tempTime);
+        });
 
-        API.getUserActivity(id)
-            .then((res) => {
-                setCalories(res.data.data.sessions);
-                setIsLoading(false);
-            })
-            .catch((err) => {
-                console.log(err);
-                navigate("/404");
-                setIsLoading(false);
+        const promisePerf = API.getUserPerformance(id).then((res) => {
+            const allData = res.data.data;
+            const tempPerf = allData.data.map((obj) => {
+                return {
+                    value: obj.value,
+                    subject: categoryFR[obj.kind],
+                };
             });
+            console.log(tempPerf);
 
-        API.getUserAverageSessions(id)
-            .then((res) => {
+            setPerf(tempPerf);
+        });
+
+        const allPromise = Promise.all([
+            promiseUser,
+            promiseActivity,
+            promiseSession,
+            promisePerf,
+        ]);
+        allPromise
+            .then(() => {
                 setIsLoading(false);
-                const allData = res.data.data;
-                const tempTime = allData.sessions.map((obj) => {
-                    return {
-                        session: obj.sessionLength,
-                        day: Days[obj.day],
-                    };
-                });
-
-                setTime(tempTime);
-            })
-            .catch((err) => {
-                console.log(err);
-                navigate("/404");
-                setIsLoading(false);
-            });
-
-        API.getUserPerformance(id)
-            .then((res) => {
-                setIsLoading(false);
-                const allData = res.data.data;
-                const tempPerf = allData.data.map((obj) => {
-                    return {
-                        value: obj.value,
-                        subject: categoryFR[obj.kind],
-                    };
-                });
-
-                setPerf(tempPerf);
             })
             .catch((err) => {
                 console.log(err);

@@ -1,5 +1,12 @@
 import React from "react";
-import { LineChart, Line, XAxis, Tooltip, ResponsiveContainer } from "recharts";
+import {
+    LineChart,
+    Line,
+    XAxis,
+    YAxis,
+    Tooltip,
+    ResponsiveContainer,
+} from "recharts";
 import styles from "./charts.module.css";
 import PropTypes from "prop-types";
 
@@ -27,7 +34,12 @@ export default function TimingSessions(props) {
                 <p>Durée moyenne des sessions</p>
             </header>
             <ResponsiveContainer width="100%" height="100%">
-                <LineChart width={258} height={320} data={props.time}>
+                <LineChart
+                    width={258}
+                    height={320}
+                    data={props.time}
+                    margin={{ right: 5, left: 5 }}
+                >
                     <XAxis
                         dataKey="day"
                         tickLine={false}
@@ -37,6 +49,11 @@ export default function TimingSessions(props) {
                         tick={{ opacity: 0.7 }}
                         fontSize={12}
                         padding={{ left: 10, right: 10 }}
+                    />
+                    <YAxis
+                        type="number"
+                        hide
+                        domain={["dataMin - 50", "dataMax + 50"]}
                     />
                     <Tooltip
                         content={<CustomTooltip />}

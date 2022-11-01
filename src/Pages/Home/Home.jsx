@@ -3,7 +3,7 @@ import Button from "../../components/Button/Button";
 import styles from "./Home.module.css";
 import logo from "../../assets/Logo.png";
 
-export default function Home(props) {
+export default function Home() {
     return (
         <div className={styles.home}>
             <div className={styles.home_container}>
@@ -26,5 +26,4 @@ export default function Home(props) {
             </div>
         </div>
     );
-    // });
 }
