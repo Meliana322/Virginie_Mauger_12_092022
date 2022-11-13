@@ -25,7 +25,7 @@ export function getUser(id) {
  * @property {number} sessions
  * Get a userId from database
  * @param { String } userId
- * @returns {Promise} Promise object represents user activity data
+ * @returns {Promise<UserActivity>} Promise object represents user activity data
  */
 
 export function getUserActivity(userId) {
@@ -38,7 +38,7 @@ export function getUserActivity(userId) {
  * @property {number} value
  * Get a userId id from database
  * @param { String } userId
- * @returns {Promise} Promise object represents user performance data
+ * @returns {Promise<UserPerformance>} Promise object represents user performance data
  */
 
 export function getUserPerformance(userId) {
@@ -52,7 +52,7 @@ export function getUserPerformance(userId) {
  * @property {number} session
  * Get a userId id from database
  * @param { String } userId
- * @returns {Promise} Promise object represents user average session data
+ * @returns {Promise<UserAverageSessions>} Promise object represents user average session data
  */
 
 export function getUserAverageSessions(userId) {

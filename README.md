@@ -34,6 +34,7 @@ Follow the indications in the README of the backend project.
 
 -   Fork the repository
 -   Clone the repository
+-   `Npm install` command will allow you to install the dependencies.
 -   `Npm build` command will allow you to retrieve the HTML, CSS, Javascript files needed to deploy the application.
 
 ### Start the Mock Server

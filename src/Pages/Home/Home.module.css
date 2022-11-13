@@ -6,18 +6,20 @@
 }
 
 .home_container {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 .title {
+    width: 80%;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
 .welcome {
-    width: 50vh;
+    width: 100%;
     display: flex;
     justify-content: center;
     font-size: 64px;
@@ -25,6 +27,11 @@
 }
 .container_logo {
     display: flex;
+}
+
+.container_logo img {
+    width: 140px;
+    height: 140px;
 }
 h1 {
     font-size: 72px;

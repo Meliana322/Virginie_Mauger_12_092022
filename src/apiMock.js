@@ -1,3 +1,17 @@
+/**
+ * @typedef {Object} User
+ * @property {number} id
+ * @property {number} [score]
+ * @property {number} [todayScore]
+ * @property {object} keyData
+ * @property {number} keydata.calorieCount
+ * @property {number} keydata.proteinCount
+ * @property {number} keydata.carbohydrateCount
+ * @property {number} keyData.lipidCount
+ * @property {string} userInfos.firstName
+ * Get a user id from database
+ * @returns {Promise<User>} Promise object represents user infos data
+ */
 export function getUser() {
     return new Promise((resolve) => {
         resolve({
@@ -21,6 +35,15 @@ export function getUser() {
         });
     });
 }
+
+/**
+ * @typedef {Object} UserActivity
+ * @property {number} sessions
+ * Get a userId from database
+ * @param { String } userId
+ * @returns {Promise<UserActivity>} Promise object represents user activity data
+ */
+
 export function getUserActivity() {
     return new Promise((resolve) => {
         resolve({
@@ -70,6 +93,15 @@ export function getUserActivity() {
     });
 }
 
+/**
+ * @typedef {Object} UserPerformance
+ * @property {string} subject
+ * @property {number} value
+ * Get a userId id from database
+ * @param { String } userId
+ * @returns {Promise<UserPerformance>} Promise object represents user performance data
+ */
+
 export function getUserPerformance() {
     return new Promise((resolve) => {
         resolve({
@@ -115,6 +147,16 @@ export function getUserPerformance() {
         });
     });
 }
+
+/**
+ * @typedef {Object} UserAverageSessions
+ * @property {number} sessionsLenght
+ * @property {number} day
+ * @property {number} session
+ * Get a userId id from database
+ * @param { String } userId
+ * @returns {Promise<UserAverageSessions>} Promise object represents user average session data
+ */
 
 export function getUserAverageSessions() {
     return new Promise((resolve) => {
